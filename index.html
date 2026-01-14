@@ -6,13 +6,38 @@
     <title>99puzzle</title>
     <style>
         body {
-            margin: 0;
             min-height: 100vh;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+        }
+        .contentGroup {
+            margin: 0;
+            min-height: 95vh;
             display: flex;
             justify-content: center;
             align-items: center;
         }
-        .tile{
+        .searchGroup {
+            margin: 0 auto;
+            width: 33vw;
+            height: 5vh;
+            justify-content: center;
+            align-items: center;
+        }
+        #search {
+            width: 10vw;
+            height: 5vh;
+            font-size: 2vw;
+            margin: 0 auto;
+        }
+        #findCtx {
+            width: 5em;
+            height: 3vh;
+            font-size: 2vw;
+            margin: 0 auto;
+        }
+        .tile {
             width: 10vw;
             height: 10vw;
             font-size: 4vw;
@@ -32,6 +57,14 @@
                 font-size: 23px;
             }
         }
+
+        .scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .scrollbar::-webkit-scrollbar {
+            display: none;
+        }
     </style>
     <script>
         "use strict";
@@ -40,7 +73,7 @@
 
         function init() {
             let table = document.getElementById("table")
-            
+
             for (let i = 0; i < 10; i++) {
                 let tr = document.createElement("tr")
                 for (let j = 0; j < 10; j++) {
@@ -82,10 +115,28 @@
             tiles[i].value = tiles[j].value
             tiles[j].textContent = tmp
             tiles[j].value = tmp
+            tiles[i].style.backgroundColor = "#fff"
+        }
+
+        function find() {
+            let findNumber = document.getElementById("findCtx").value
+            for (let i=0;i<100;i++) {
+                if(tiles[i].textContent == findNumber) {
+                tiles[i].style.backgroundColor = "#fcd381"    
+                }else {
+                    tiles[i].style.backgroundColor = "#fff"
+                }
+            }
         }
     </script>
 </head>
 <body onload="init()">
-    <table id="table"></table>
+    <div class="searchGroup">
+        <button id="search" onclick="find()">検索</button>
+        <input type="number" id="findCtx" min="0" max="99">
+    </div>
+    <div class="contentGroup">
+        <table id="table"></table>
+    </div>
 </body>
 </html>
